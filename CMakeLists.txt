@@ -2,12 +2,14 @@
 #  Copyright 2010 CNRS
 #
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
-INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/boost.cmake)
-INCLUDE(cmake/cpack.cmake)
-INCLUDE(cmake/eigen.cmake)
+find_package(catkin REQUIRED COMPONENTS sot_cmake)
+
+INCLUDE(${SOT_CMAKE_DIR}/base.cmake)
+INCLUDE(${SOT_CMAKE_DIR}/boost.cmake)
+INCLUDE(${SOT_CMAKE_DIR}/cpack.cmake)
+INCLUDE(${SOT_CMAKE_DIR}/eigen.cmake)
 
 SET(PROJECT_NAME soth)
 SET(PROJECT_DESCRIPTION "...")
@@ -37,6 +39,13 @@ IF(UNIX)
 ENDIF(UNIX)
 
 SETUP_PROJECT()
+
+include_directories(${catkin_INCLUDE_DIRS})
+
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME})
+
 SEARCH_FOR_EIGEN()
 
 # Handle OS specificities 
@@ -53,8 +62,8 @@ SET(BOOST_COMPONENTS program_options signals)
 SEARCH_FOR_BOOST()
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(unitTesting)
-ADD_SUBDIRECTORY(exe)
+#ADD_SUBDIRECTORY(unitTesting)
+#ADD_SUBDIRECTORY(exe)
 
 IF(ADD_CXX_PATCH)
   PKG_CONFIG_APPEND_CFLAGS("-fpermissive")
