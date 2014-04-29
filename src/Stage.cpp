@@ -711,7 +711,7 @@ namespace soth
 
     /* Choose the first available row in ML. */
     const unsigned int wcolup = freeML.get();
-    assert( (wcolup >= 0)&&(wcolup<nr) );
+    assert( (wcolup<nr) );
     sotDEBUG(5) << " wc=" << wcolup << endl;
 
     /* Add a line to ML. */
